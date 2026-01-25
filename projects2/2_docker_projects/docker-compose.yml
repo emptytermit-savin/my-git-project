@@ -1,0 +1,22 @@
+services:
+  php:
+    build: .
+    volumes:
+      - ./src:/var/www/html
+    networks:
+      - network_lesson_45
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./src:/var/www/html
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+    networks:
+      - network_lesson_45
+
+networks:
+  network_lesson_45:
